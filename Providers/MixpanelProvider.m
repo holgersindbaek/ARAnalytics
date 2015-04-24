@@ -24,6 +24,9 @@
 #ifdef AR_MIXPANEL_EXISTS
 - (void)identifyUserWithID:(NSString *)userID andEmailAddress:(NSString *)email {
     if (userID) {
+        if ([Mixpanel sharedInstance].distinctId != userID) {
+            [[Mixpanel sharedInstance] createAlias:userID forDistinctID:[Mixpanel sharedInstance].distinctId];
+        }
         [[Mixpanel sharedInstance] identify:userID];
     }
 
