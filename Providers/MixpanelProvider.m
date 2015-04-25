@@ -36,7 +36,11 @@
 }
 
 - (void)setUserProperty:(NSString *)property toValue:(NSString *)value {
-    [[[Mixpanel sharedInstance] people] set:property to:value];
+    if (property == "charge") {
+        [[[Mixpanel sharedInstance] people] trackCharge:value];
+    } else {
+        [[[Mixpanel sharedInstance] people] set:property to:value];
+    }
 }
 
 - (void)incrementUserProperty:(NSString *)counterName byInt:(NSNumber *)amount {
